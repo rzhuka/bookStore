@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import type { Book, Inventory, SearchPayload } from "./types";
 import { fetchProduct } from "./api";
+import { CanceledError, type AxiosRequestConfig } from "axios";
 
 export default function useActions() {
     const [books, setBooks] = useState<Array<Book> | null>(null);
@@ -13,28 +14,43 @@ export default function useActions() {
 
     const getBooks = () => booksRef.current ?? [];
 
-    const findByTitle = (title: Book['title']) =>
-        getBooks().filter(book => book.title.includes(title));
+    const findByTitle = (title: Book['title']) => {
+        const bookTitle = title.trim().toLocaleLowerCase();
+        const books = getBooks();
 
-    const add = () => {};
+        return bookTitle
+            ? books.filter(book =>
+                book.title
+                    .toLocaleLowerCase()
+                    .includes(bookTitle))
+            : books;
+    };
 
-    const search = async ({ title }: SearchPayload) => {
-        if (!Array.isArray(booksRef.current)) {
-            try {
-                const { data } = await fetchProduct();
+    const add = () => { };
 
-                saveBooks(data);
-            } catch (error) {
-                console.error(error);
-                // display error
-            }
+    const fetch = async (config?: AxiosRequestConfig) => {
+        if (booksRef.current?.length) {
+            return;
         }
 
-        return findByTitle(title);
+        try {
+            const { data } = await fetchProduct(config);
+
+            saveBooks(data);
+        } catch (error) {
+            if (error instanceof CanceledError) {
+                return;
+            }
+
+            console.error(error);
+            // display error
+        }
     };
 
     return {
         add,
-        search
+        findByTitle,
+        fetch,
+        getBooks
     };
 };

@@ -3,9 +3,14 @@ export type Inventory = {
 };
 
 export type Book = {
-    readonly title: string
+    readonly title: string;
+    readonly description: string;
+    readonly author: string;
+    readonly subtitle: string;
+    readonly publisher: string;
+    readonly isbn: string;
 };
 
 export type SearchPayload = {
-    readonly title: Book['title'];
+    readonly query: Book['title'];
 };
