@@ -9,6 +9,7 @@ export type Book = {
     readonly subtitle: string;
     readonly publisher: string;
     readonly isbn: string;
+    readonly pages?: string;
 };
 
 export type SearchPayload = {

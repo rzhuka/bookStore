@@ -11,7 +11,7 @@ const SearchProduct = () => {
     const actionsRef = useRef(actions);
     actionsRef.current = actions;
 
-    const { getBooks, findByTitle } = actions;
+    const { getBooks, findByTitle, selectBook } = actions;
 
     const [querySearch, setQuerySearch] = useState('');
 

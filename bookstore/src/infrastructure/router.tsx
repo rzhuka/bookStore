@@ -35,7 +35,7 @@ export default createBrowserRouter([
                 ),
             },
             {
-                path: Routes.Category,
+                path: `${Routes.Category}/:categoryId`,
                 element: (
                     <ShowProduct />
                 ),

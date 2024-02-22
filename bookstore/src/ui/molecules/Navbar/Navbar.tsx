@@ -7,23 +7,28 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import AddIcon from '@mui/icons-material/Add';
+import { Link } from "react-router-dom";
+import { Routes } from "config/routes";
 
 const Navbar = () => {
     return (
         <Box>
             <Divider />
             <List>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                               <AddIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary='Add new book' />
-                        </ListItemButton>
-                    </ListItem>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link}
+                        to={Routes.Add}
+                    >
+                        <ListItemIcon>
+                            <AddIcon />
+                        </ListItemIcon>
+                        <ListItemText primary='Add new book' />
+                    </ListItemButton>
+                </ListItem>
             </List>
             <Divider />
-            
+
         </Box>
     );
 };

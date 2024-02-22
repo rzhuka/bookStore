@@ -5,6 +5,9 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import type { Book } from "feature/product/types";
+import router from "infrastructure/router";
+import { Routes } from "config/routes";
+import { Link } from "react-router-dom";
 
 type Props = Pick<
     Book,
@@ -14,13 +17,14 @@ type Props = Pick<
     | 'subtitle'
     | 'publisher'
     | 'isbn'
->;
+>
 
 const Card = ({
     publisher,
     title,
     author,
-    description
+    description,
+    isbn,
 }: Props) => (
     <MuiCard
         sx={{
@@ -64,7 +68,16 @@ const Card = ({
             </Typography>
         </CardContent>
         <CardActions>
-            <Button size="small">Learn More</Button>
+            <Link to={`${Routes.Category}/${isbn}`}> Learn More</Link>
+            {/* <Button 
+                 href={Routes.Category} 
+                size="small"
+                onClick={()=> selectBook(isbn)}
+            >
+
+                Learn More
+
+            </Button> */}
         </CardActions>
     </MuiCard >
 );
