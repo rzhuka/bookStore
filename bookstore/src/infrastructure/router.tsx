@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Routes } from "config/routes";
-import BookstoreLayout from "ui/layouts/BookstoreLayout";
+import Root from "ui/layouts/Root";
 import AddProduct from "ui/organizim/AddProduct";
 import SearchProduct from "ui/organizim/SearchProduct";
 import ShowProduct from "ui/organizim/ShowProduct";
@@ -10,7 +10,7 @@ export default createBrowserRouter([
     {
         path: Routes.Root,
         element: (
-            <BookstoreLayout />
+            <Root />
         ),
         children: [
             {

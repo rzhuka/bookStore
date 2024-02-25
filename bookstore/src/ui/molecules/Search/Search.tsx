@@ -26,7 +26,8 @@ const Search = (
       sx={{
         border: '1px solid black',
         borderRadius: '10px',
-        width: '100%'
+        width: '90%',
+        margin: '0 auto'
       }}>
       <SearchIcon
         sx={{

@@ -1,17 +1,16 @@
-
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import Header from "ui/molecules/Header";
-import Footer from "ui/molecules/Footer";
 import Container from '@mui/material/Container';
 import Box from "@mui/material/Box";
-import { useState } from "react";
+import Header from "ui/molecules/Header";
+import Footer from "ui/molecules/Footer";
 
-const BookstoreLayout = () => {
+const Root = () => {
     const [isNavbarOpen, setIsNavbarOpen] = useState(false)
 
     return (
         <Box>
-            <Header open={isNavbarOpen} onClick={() => setIsNavbarOpen(!isNavbarOpen)}  />
+            <Header open={isNavbarOpen} onClick={() => setIsNavbarOpen(!isNavbarOpen)} />
             <Container
                 component='main'
                 sx={{
@@ -22,8 +21,7 @@ const BookstoreLayout = () => {
             </Container>
             <Footer />
         </Box>
-
     );
 }
 
-export default BookstoreLayout;
+export default Root;

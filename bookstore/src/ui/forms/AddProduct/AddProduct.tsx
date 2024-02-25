@@ -1,17 +1,13 @@
-import { memo } from "react";
+import { FC, memo } from "react";
 import { yupResolver } from '@hookform/resolvers/yup';
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useForm, Controller } from "react-hook-form";
 import LoadingButton from '@mui/lab/LoadingButton';
-import type { Book } from "feature/product/types";
 import { getFormDefaultValues, useSchema, validator } from "./useSchema";
+import type { AddProductProps } from "./types";
 
-type Props = {
-    readonly defaultValues : any
-}
-
-const AddProductForm = ({ defaultValues }: Props) => {
+const AddProductForm: FC<AddProductProps> = ({ defaultValues, onSubmit }) => {
 
     const schema = useSchema();
 
@@ -26,15 +22,20 @@ const AddProductForm = ({ defaultValues }: Props) => {
         }
     } = useForm({
         resolver: yupResolver(schema),
-        defaultValues,
+        defaultValues: {
+            ...defaultValues,
+            ...getFormDefaultValues()
+        },
         mode: 'onBlur'
     });
 
-    const onSubmit = handleSubmit((data) => console.log(data))
     return (
         <Box
             component="form"
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(formState => {
+                onSubmit(formState);
+                reset();
+            })}
             sx={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(2, auto)',
@@ -44,15 +45,15 @@ const AddProductForm = ({ defaultValues }: Props) => {
         >
             <Controller
                 control={control}
-                name= 'title'
+                name='title'
                 rules={validator['title']}
                 render={({ field, fieldState: { invalid, error } }) => (
                     <TextField
-                    sx={{
-                        width: 300,
-                        mt: 1,
-                        ml: 1
-                    }}
+                        sx={{
+                            width: 300,
+                            mt: 1,
+                            ml: 1
+                        }}
                         {...field}
                         error={invalid}
                         helperText={error?.message}
@@ -74,13 +75,13 @@ const AddProductForm = ({ defaultValues }: Props) => {
                         }}
                         error={invalid}
                         helperText={error?.message}
-                        label= 'Description'
+                        label='Description'
                     />
                 )}
             />
             <Controller
                 control={control}
-                name= 'author'
+                name='author'
                 rules={validator['author']}
                 render={({ field, fieldState: { invalid, error } }) => (
                     <TextField
@@ -92,13 +93,13 @@ const AddProductForm = ({ defaultValues }: Props) => {
                         }}
                         error={invalid}
                         helperText={error?.message}
-                        label= 'Author'
+                        label='Author'
                     />
                 )}
             />
             <Controller
                 control={control}
-                name= 'subtitle'
+                name='subtitle'
                 rules={validator['subtitle']}
                 render={({ field, fieldState: { invalid, error } }) => (
                     <TextField
@@ -110,13 +111,13 @@ const AddProductForm = ({ defaultValues }: Props) => {
                         }}
                         error={invalid}
                         helperText={error?.message}
-                        label= 'Subtitle'
+                        label='Subtitle'
                     />
                 )}
             />
             <Controller
                 control={control}
-                name= 'publisher'
+                name='publisher'
                 rules={validator['publisher']}
                 render={({ field, fieldState: { invalid, error } }) => (
                     <TextField
@@ -128,14 +129,14 @@ const AddProductForm = ({ defaultValues }: Props) => {
                         }}
                         error={invalid}
                         helperText={error?.message}
-                        label= 'Publisher'
+                        label='Publisher'
                     />
                 )}
             />
 
             <Controller
                 control={control}
-                name= 'isbn'
+                name='isbn'
                 rules={validator['isbn']}
                 render={({ field, fieldState: { invalid, error } }) => (
                     <TextField
@@ -147,14 +148,38 @@ const AddProductForm = ({ defaultValues }: Props) => {
                         }}
                         error={invalid}
                         helperText={error?.message}
-                        label= 'Isbn'
+                        label='Isbn'
+                    />
+                )}
+            />
+            <Controller
+                control={control}
+                name='year'
+                rules={validator['year']}
+                render={({ field, fieldState: { invalid, error } }) => (
+                    <TextField
+                        {...field}
+                        sx={{
+                            width: 300,
+                            mt: 1,
+                            ml: 1
+                        }}
+                        error={invalid}
+                        helperText={error?.message}
+                        label='Year'
                     />
                 )}
             />
             <LoadingButton
+                type='submit'
                 sx={{
                     maxWidth: '100%',
                     borderRadius: '12px',
+                    gridColumn: '1 / -1',
+                    mt:2,
+                    height: '40px',
+                    width: '200px',
+                    justifySelf: 'center'
                 }}
                 fullWidth
                 disabled={!isValid}

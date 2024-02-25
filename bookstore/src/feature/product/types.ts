@@ -9,9 +9,19 @@ export type Book = {
     readonly subtitle: string;
     readonly publisher: string;
     readonly isbn: string;
-    readonly pages?: string;
+    readonly pages?: number;
+    readonly year?: number;
+    isFavorite?: boolean;
 };
 
 export type SearchPayload = {
     readonly query: Book['title'];
 };
+
+export type SearchFilter = Pick<
+    Book,
+    | 'title'
+    | 'isbn'
+    | 'author'
+    | 'publisher'
+>;

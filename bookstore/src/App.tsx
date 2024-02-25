@@ -4,12 +4,15 @@ import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/s
 import { RouterProvider } from 'react-router-dom';
 import router from 'infrastructure/router';
 import theme from 'infrastructure/mui-theme';
+import ProductProvider from 'feature/product';
 
 const App = () => (
     <React.StrictMode>
         <CssVarsProvider theme={theme}>
             <CssBaseline />
-            <RouterProvider router={router} />
+            <ProductProvider>
+                <RouterProvider router={router} />
+            </ProductProvider>
         </CssVarsProvider>
     </React.StrictMode>
 );
