@@ -2,10 +2,8 @@ import { memo } from "react";
 import MuiCard from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import type { Book } from "feature/product/types";
-import router from "infrastructure/router";
 import { Routes } from "config/routes";
 import { Link } from "react-router-dom";
 

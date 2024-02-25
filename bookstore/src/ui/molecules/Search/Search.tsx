@@ -1,4 +1,3 @@
-import { MouseEvent } from "react";
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import Box from '@mui/material/Box';

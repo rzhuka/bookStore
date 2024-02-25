@@ -1,4 +1,4 @@
-import { PropsWithChildren, memo } from "react";
+import { PropsWithChildren } from "react";
 import { useTheme } from '@mui/material/styles';
 import MuiDrawer, { DrawerProps } from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
@@ -23,16 +23,16 @@ const Drawer = ({ children, onClose, ...props }: PropsWithChildren<Props>) => {
             onClose={onClose}
             container={container}
             {...props}
-            
+
             sx={{
-                
+
                 '& .MuiDrawer-paper': {
                     boxSizing: 'border-box',
                     width: 240
                 },
             }}
         >
-          <DrawerHeader>
+            <DrawerHeader>
                 <IconButton
                     onClick={onClose}
                 >
@@ -40,7 +40,7 @@ const Drawer = ({ children, onClose, ...props }: PropsWithChildren<Props>) => {
                         ? <ChevronLeftIcon />
                         : <ChevronRightIcon />}
                 </IconButton>
-                </DrawerHeader>
+            </DrawerHeader>
             <Divider />
             {children}
         </MuiDrawer>
